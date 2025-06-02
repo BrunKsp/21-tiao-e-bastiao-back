@@ -2,9 +2,7 @@
 using api.Extensions;
 using ConfigurationSubstitution;
 using CrossCutting.Ioc;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using data.Infra.Documents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +10,7 @@ EnvironmentsConfig.Load();
 
 builder.Configuration.EnableSubstitutions();
 
+RegisterDocumentsMappings.RegisterDocumentsMapping();
 builder.Services.AutoMapperServiceConfig(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.SwaggerServiceConfig();
@@ -31,6 +30,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
     });
 });
+
 // builder.Services.AuthServiceConfig(builder.Configuration);
 
 var app = builder.Build();
@@ -38,11 +38,8 @@ var app = builder.Build();
 // app.AuthAppConfig();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
