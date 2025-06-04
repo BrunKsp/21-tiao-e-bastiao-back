@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using application.Dtos.Error;
 using application.Exceptions;
+using application.Utils;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -7,14 +9,10 @@ namespace application.Services;
 
 public class BaseService
 {
-    // QUANDO FOR OBTER DADOS DE TOKEN DO USUARIO LOGADO
-    // public BaseService(IUserInfo user)
-    // {
-    //     _user = user;
-    // }
-    public BaseService()
+    private readonly IUserInfo _user;
+    public BaseService(IUserInfo user)
     {
-
+        _user = user;
     }
     protected static void Validate<TV, TM>(TV validacao, TM viewModel) where TV : AbstractValidator<TM>
     {
@@ -48,10 +46,10 @@ public class BaseService
         });
     }
 
-    // protected string GetUserSlug()
-    // {
-    //     var claims = _user.GetClaims();
-    //     var claimUserSlug = claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid);
-    //     return claimUserSlug?.Value;
-    // }
+    protected string GetUserSlug()
+    {
+        var claims = _user.GetClaims();
+        var claimUserSlug = claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid);
+        return claimUserSlug?.Value;
+    }
 }

@@ -31,11 +31,11 @@ builder.Services.AddCors(options =>
     });
 });
 
-// builder.Services.AuthServiceConfig(builder.Configuration);
+builder.Services.AuthServiceConfig(builder.Configuration);
 
 var app = builder.Build();
 
-// app.AuthAppConfig();
+app.AuthAppConfig();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
