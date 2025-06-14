@@ -22,6 +22,9 @@ namespace data.Infra.PG.Configurations
 
             builder.Property(p => p.Senha)
                 .HasColumnName("senha");
+
+            builder.Property(p => p.TipoUsuario)
+                .HasColumnName("tipo_usuario");
         }
     }
 }

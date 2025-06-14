@@ -51,7 +51,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         var builder = new DbContextOptionsBuilder<AppDbContext>();
 
-        builder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=apps",
+       builder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=apps",
                 x => x.MigrationsHistoryTable("__ef_historico_migrations", "code_race"));
 
         return new AppDbContext(builder.Options);
