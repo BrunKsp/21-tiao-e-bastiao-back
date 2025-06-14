@@ -9,14 +9,28 @@ namespace application.Services;
 public class ProfessorService : BaseService, IProfessorService
 {
     private readonly IDadosIARepository _dadosIaRepository;
-    public ProfessorService(IUserInfo user, IDadosIARepository dadosIaRepository) : base(user)
+    private readonly IUsuarioService _usuarioService;
+    public ProfessorService(IUserInfo user, IDadosIARepository dadosIaRepository, IUsuarioService usuarioService) : base(user)
     {
         _dadosIaRepository = dadosIaRepository;
+        _usuarioService = usuarioService;
     }
 
     public async Task<TodosAlunosDto> BuscarTodosAlunos()
     {
         var dados = await _dadosIaRepository.BuscarTodos();
+
+        var alunosUnicos = dados.Select(d => d.AlunoSlug).Distinct();
+
+        var alunosInfo = new Dictionary<string, string>();
+
+       
+        foreach (var slug in alunosUnicos)
+        {
+            var usuario = await _usuarioService.BuscarPorSlug(slug);
+            if (usuario != null)
+                alunosInfo[slug] = usuario.Nome;
+        }
 
         var agrupado = dados
             .GroupBy(x => x.AlunoSlug)
@@ -29,12 +43,17 @@ public class ProfessorService : BaseService, IProfessorService
                     Descricao = q.Descricao
                 }).ToList();
 
-                int somaPontuacao = grupo.Sum(q => q.Score);
+                int totalPontuacao = grupo.Sum(q => q.Score);
+                int totalQuestionarios = grupo.Count();
+                int media = totalQuestionarios > 0
+                    ? (int)Math.Round((double)totalPontuacao / totalQuestionarios)
+                    : 0;
 
                 return new AlunoComQuestionariosDto
                 {
                     AlunoSlug = grupo.Key,
-                    PontuacaoTotal = somaPontuacao,
+                    Nome = alunosInfo.TryGetValue(grupo.Key, out var nome) ? nome : "(Desconhecido)",
+                    PontuacaoTotal = media,
                     Questionarios = questionarios
                 };
             })
