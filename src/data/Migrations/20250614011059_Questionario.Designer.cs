@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using data.Infra.PG.Context;
@@ -11,9 +12,11 @@ using data.Infra.PG.Context;
 namespace data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250614011059_Questionario")]
+    partial class Questionario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +47,7 @@ namespace data.Migrations
                         .HasColumnName("letra");
 
                     b.Property<Guid>("QuestaoId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("questao_id");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -101,10 +103,7 @@ namespace data.Migrations
                         .HasColumnName("slug");
 
                     b.Property<string>("Tema")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("tema");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
