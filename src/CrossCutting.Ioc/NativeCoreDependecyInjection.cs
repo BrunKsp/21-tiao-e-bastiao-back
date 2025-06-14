@@ -2,7 +2,10 @@
 using application.Services;
 using application.Utils;
 using data.Infra.Documents;
+using data.Infra.Documents.Context;
 using data.Infra.PG.Context;
+using infra.Documents.Interfaces;
+using infra.Documents.Repositories;
 using infra.PG.Interfaces;
 using infra.PG.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +21,7 @@ public static class NativeCoreDependecyInjection
     {
 
         services.AddScoped<AppDbContext>();
-        services.AddScoped<DbContext>();
+        services.AddScoped<DocumentContext>();
 
         #region Documents
 
@@ -28,6 +31,7 @@ public static class NativeCoreDependecyInjection
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IQuestoesRepository, QuestoesRepository>();
         services.AddScoped<IRespostaAlunoRepository, RespostaAlunoRepository>();
+        services.AddScoped<IDadosIARepository, DadosIARepository>();
 
 
         #endregion
@@ -37,6 +41,7 @@ public static class NativeCoreDependecyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUsuarioService, UsuarioService>();
         services.AddScoped<IQuestoesServices, QuestoesService>();
+        services.AddScoped<IIAService, IAService>();
         #endregion
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -50,10 +55,10 @@ public static class NativeCoreDependecyInjection
         RegisterDocumentsMappings.RegisterDocumentsMapping();
 
 
-        //  services.AddScoped(x =>
-        //  {
-        //      var context = x.GetRequiredService<DocumentContext>();
-        //      return context.PropriedadeCollection;
-        //  });
+        services.AddScoped(x =>
+        {
+            var context = x.GetRequiredService<DocumentContext>();
+            return context.DadosIACollection;
+        });
     }
 }
