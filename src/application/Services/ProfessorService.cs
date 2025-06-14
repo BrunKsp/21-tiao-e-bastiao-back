@@ -14,7 +14,7 @@ public class ProfessorService : BaseService, IProfessorService
         _dadosIaRepository = dadosIaRepository;
     }
 
-     public async Task<TodosAlunosDto> BuscarTodosAlunos()
+    public async Task<TodosAlunosDto> BuscarTodosAlunos()
     {
         var dados = await _dadosIaRepository.BuscarTodos();
 
@@ -29,9 +29,7 @@ public class ProfessorService : BaseService, IProfessorService
                     Descricao = q.Descricao
                 }).ToList();
 
-                int somaPontuacao = grupo
-                .Select(q => int.TryParse(q.Score, out var val) ? val : 0)
-                .Sum();
+                int somaPontuacao = grupo.Sum(q => q.Score);
 
                 return new AlunoComQuestionariosDto
                 {
