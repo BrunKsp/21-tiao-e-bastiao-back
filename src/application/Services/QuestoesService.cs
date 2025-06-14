@@ -1,3 +1,4 @@
+using application.Dtos.Questionario;
 using application.Dtos.Questoes;
 using application.Dtos.Questoes.Resposta;
 using application.Interfaces;
@@ -67,4 +68,25 @@ public class QuestoesService : BaseService, IQuestoesServices
         await _respostaAlunoRepository.AddRange(entidades);
     }
 
+    public async Task<IList<QuestionarioRespondidoDto>> BuscarRespostasAgrupadasPorTema(string usuarioSlug)
+    {
+        var usuario = await _usuarioService.BuscarPorSlug(usuarioSlug);
+        var respostas = await _respostaAlunoRepository.BuscarComQuestoes(usuario.Id);
+
+        var agrupado = respostas
+            .GroupBy(r => r.Questao.Tema)
+            .Select(grupo => new QuestionarioRespondidoDto
+            {
+                Tema = grupo.Key,
+                Questoes = grupo.Select(r => new RespostaQuestaoDto
+                {
+                    Enunciado = r.Questao.Enunciado,
+                    AlternativaCorreta = r.Questao.AlternativaCorreta,
+                    LetraEscolhida = r.LetraEscolhida,
+                    Acertou = r.Acertou,
+                }).ToList()
+            }).ToList();
+
+        return agrupado;
+    }
 }
