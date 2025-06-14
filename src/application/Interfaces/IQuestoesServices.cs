@@ -8,7 +8,7 @@ namespace application.Interfaces;
 public interface IQuestoesServices
 {
     Task<IList<QuestoesDto>> BuscarTodas();
-    Task RegistrarRespostas(RespostasQuestionarioDto dto);
+    Task<IList<RespostaQuestaoDto>> RegistrarRespostas(RespostasQuestionarioDto dto);
     // Task<IList<RespostaAlunoDetalhadaDto>> BuscarRespostasPorUsuario(string usuarioSlug);
     Task<IList<QuestionarioRespondidoDto>> BuscarRespostasAgrupadasPorTema(string usuarioSlug);
 }

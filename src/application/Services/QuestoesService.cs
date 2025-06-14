@@ -36,12 +36,13 @@ public class QuestoesService : BaseService, IQuestoesServices
         return _mapper.Map<IList<QuestoesDto>>(questoes);
     }
 
-    public async Task RegistrarRespostas(RespostasQuestionarioDto dto)
+    public async Task<IList<RespostaQuestaoDto>> RegistrarRespostas(RespostasQuestionarioDto dto)
     {
         var usuarioSlug = GetUserSlug();
         var usuario = await _usuarioService.BuscarPorSlug(usuarioSlug);
 
         var entidades = new List<RespostaAlunoEntity>();
+        var respostasDto = new List<RespostaQuestaoDto>();
 
         foreach (var resposta in dto.Respostas)
         {
@@ -56,17 +57,31 @@ public class QuestoesService : BaseService, IQuestoesServices
                 StringComparison.OrdinalIgnoreCase
             );
 
-            entidades.Add(new RespostaAlunoEntity
+            var entidade = new RespostaAlunoEntity
             {
                 UsuarioId = usuario.Id,
                 QuestaoId = questao.Id,
                 LetraEscolhida = resposta.LetraEscolhida.ToUpperInvariant(),
                 RespondidoEm = DateTime.UtcNow,
                 Acertou = acertou
+            };
+
+            entidades.Add(entidade);
+
+            respostasDto.Add(new RespostaQuestaoDto
+            {
+                QuestaoSlug = questao.Slug,
+                Enunciado = questao.Enunciado,
+                AlternativaCorreta = questao.AlternativaCorreta,
+                LetraEscolhida = entidade.LetraEscolhida,
+                Acertou = acertou,
             });
         }
+
         await _respostaAlunoRepository.AddRange(entidades);
+        return respostasDto;
     }
+
 
     public async Task<IList<QuestionarioRespondidoDto>> BuscarRespostasAgrupadasPorTema(string usuarioSlug)
     {
