@@ -17,4 +17,8 @@ public class DadosIARepository : IDadosIARepository
     {
         await _dataBase.InsertOneAsync(collection);
     }
+    public async Task<List<DadosIACollection>> BuscarTodos()
+    {
+        return await _dataBase.Find(FilterDefinition<DadosIACollection>.Empty).ToListAsync();
+    }
 }

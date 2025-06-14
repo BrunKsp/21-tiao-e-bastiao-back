@@ -19,5 +19,8 @@ public class DadosIAMapping : DocumentMapping<DadosIACollection>
 
         cm.MapField(d => d.QuestionarioSlug)
          .SetElementName("questionario_slug");
+        
+        cm.MapField(d => d.AlunoSlug)
+         .SetElementName("aluno_slug");
     }
 }

@@ -14,7 +14,7 @@ using BC = BCrypt.Net.BCrypt;
 
 namespace application.Services;
 
-public class AuthService : BaseService , IAuthService
+public class AuthService : BaseService, IAuthService
 {
     private readonly IConfiguration _configuration;
     private readonly IUsuarioRepository _usuarioRepository;
@@ -49,7 +49,8 @@ public class AuthService : BaseService , IAuthService
         {
             Slug = user.Slug,
             Token = tokenHandler.WriteToken(token),
-            Nome = user.Nome
+            Nome = user.Nome,
+            TipoUsuario = user.TipoUsuario
         };
     }
 

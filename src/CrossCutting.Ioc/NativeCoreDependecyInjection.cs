@@ -42,6 +42,7 @@ public static class NativeCoreDependecyInjection
         services.AddScoped<IUsuarioService, UsuarioService>();
         services.AddScoped<IQuestoesServices, QuestoesService>();
         services.AddScoped<IIAService, IAService>();
+        services.AddScoped<IProfessorService, ProfessorService>();
         #endregion
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

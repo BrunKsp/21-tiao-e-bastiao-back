@@ -6,4 +6,5 @@ public class DadosIACollection
     public string Score { get; set; }
     public string Descricao { get; set; }
     public string QuestionarioSlug { get; set; }
+    public string AlunoSlug { get; set; }
 }

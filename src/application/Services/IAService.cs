@@ -12,15 +12,21 @@ public class IAService : BaseService, IIAService
 {
     private readonly IMapper _mapper;
     private readonly IDadosIARepository _repository;
-    public IAService(IUserInfo user, IMapper mapper = null, IDadosIARepository repository = null) : base(user)
+    private readonly IUsuarioService _usuarioService;
+    public IAService(IUserInfo user, IMapper mapper = null, IDadosIARepository repository = null, IUsuarioService usuarioService = null) : base(user)
     {
         _mapper = mapper;
         _repository = repository;
+        _usuarioService = usuarioService;
     }
     public async Task SalvarRespostaIa(RespostaIADto dto)
     {
+        var usuario = GetUserSlug();
+        var dadosUsuario = await _usuarioService.BuscarPorSlug(usuario);
+
         var dados = new DadosIACollection
         {
+            AlunoSlug = dadosUsuario.Slug,
             Score = dto.Score,
             Descricao = dto.Descricao,
             QuestionarioSlug = dto.QuestionarioSlug
