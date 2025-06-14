@@ -9,18 +9,20 @@
 ---
 
 ## 🎯 Tema / Área do Problema
-> *(Preencha após a divulgação oficial do tema)*  
-Exemplo: Educação Inclusiva / Cidadania Digital
+> Educação Digital / Avaliação Formativa Inteligente
 
 ---
 
 ## ❓ Problema a Ser Resolvido
-> Descreva o problema identificado, seus impactos e por que ele precisa ser resolvido. Use dados reais se possível.
+> No cenário educacional brasileiro, há uma carência de ferramentas que consigam avaliar de forma contínua e personalizada o desempenho lógico dos alunos. Professores enfrentam dificuldades para acompanhar o progresso individual, e alunos carecem de feedback objetivo que ajude no aprendizado real — não apenas em notas finais.
 
 ---
 
 ## 💡 Descrição da Solução Proposta
-Nossa aplicação é um sistema monolítico desenvolvido em .NET que oferece uma API REST para [explicação do que ela faz], com base em dados estruturados no PostgreSQL e não estruturados no MongoDB. A aplicação visa [descrever a funcionalidade principal com ênfase no impacto e inovação].
+Nossa aplicação é uma **API REST inteligente para avaliação lógica**, construída em .NET 8, que recebe respostas de questionários e calcula **pontuações médias por aluno**, organizadas por questionários.  
+Os dados dos alunos e questões são armazenados em **PostgreSQL**, enquanto os resultados e análises são persistidos em **MongoDB**, permitindo **consultas agregadas e flexíveis** para professores e dashboards.
+
+Essa arquitetura híbrida viabiliza análises rápidas e detalhadas do desempenho acadêmico de cada aluno ao longo do tempo.
 
 ---
 
@@ -103,23 +105,28 @@ A API estará disponível em: [http://localhost:5001/swagger](http://localhost:5
 
 ## 📈 Modelo de Negócio
 
-> (Descreva como o sistema pode ser utilizado no mundo real, público-alvo, impacto social ou comercial, e possíveis fontes de receita se houver.)
+> Público-alvo: escolas, professores de ensino médio, cursos preparatórios
+
+Pode ser integrado a plataformas LMS ou apps de reforço escolar
+
+O backend pode gerar dados para dashboards personalizados e relatórios de desempenho
+
+Foco educacional com potencial de impacto social em avaliações formativas
 
 ---
 
 ## 📣 Pitch
 
-> *Apresentação em até 3 minutos (preparar em Google Slides, Canva ou Figma)*  
-Destaque o problema, solução, público, impacto e diferencial técnico.
+> Aplicação educacional simples, robusta e acessível, que permite a professores acompanhar o desempenho lógico dos alunos com clareza. Em vez de apenas aplicar testes, o sistema transforma respostas em dados úteis para personalizar o ensino — tudo de forma rápida, segura e integrada.
 
 ---
 
 ## ✅ Status da Aplicação
 
 - [x] Backend funcional com conexão dupla (Mongo + Postgre)
-- [x] Swagger documentado
-- [x] Repositório estruturado
-- [x] Aplicação testada localmente
+- [x] Endpoints para envio de questionários e relatório por aluno
+- [x] Estrutura limpa, testada e documentada com Swagger
+- [x] Pronto para consumo por frontend educacional
 
 ---
 
