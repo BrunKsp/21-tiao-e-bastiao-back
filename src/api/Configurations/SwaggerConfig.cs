@@ -16,29 +16,29 @@ public static class SwaggerConfig
                 Version = "v1",
                 Title = "Api Code Race",
             });
-            // swg.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            // {
-            //     Name = "Authorization",
-            //     Type = SecuritySchemeType.ApiKey,
-            //     Scheme = "Bearer",
-            //     BearerFormat = "JWT",
-            //     In = ParameterLocation.Header,
-            //     Description = "Autenticação JWT. Exemplo: Bearer {token}"
-            // });
-            // swg.AddSecurityRequirement(new OpenApiSecurityRequirement
-            // {
-            // {
-            //     new OpenApiSecurityScheme
-            //     {
-            //         Reference = new OpenApiReference
-            //         {
-            //             Type = ReferenceType.SecurityScheme,
-            //             Id = "Bearer"
-            //         }
-            //     },
-            //     Array.Empty<string>()
-            // }
-            // });
+             swg.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+             {
+                 Name = "Authorization",
+                 Type = SecuritySchemeType.ApiKey,
+                 Scheme = "Bearer",
+                 BearerFormat = "JWT",
+                 In = ParameterLocation.Header,
+                 Description = "Autenticação JWT. Exemplo: Bearer {token}"
+             });
+             swg.AddSecurityRequirement(new OpenApiSecurityRequirement
+             {
+             {
+                 new OpenApiSecurityScheme
+                 {
+                     Reference = new OpenApiReference
+                     {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                     }
+                 },
+                 Array.Empty<string>()
+             }
+             });
         });
     }
 

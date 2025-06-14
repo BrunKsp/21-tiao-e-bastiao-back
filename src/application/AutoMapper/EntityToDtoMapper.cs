@@ -1,3 +1,4 @@
+using application.Dtos.Questoes;
 using application.Dtos.Usuario;
 using AutoMapper;
 using data.Infra.PG.Entities;
@@ -10,5 +11,7 @@ public class EntityToDtoMapper : Profile
     public EntityToDtoMapper(IConfiguration config)
     {
         CreateMap<UsuarioEntity, UsuarioDto>();
+        CreateMap<QuestoesEntity, QuestoesDto>();
+        CreateMap<AlternativasEntity, AlternativasDto>();
     }
 }

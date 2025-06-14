@@ -8,7 +8,12 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions options) : base(options)
     {
+
     }
+
+    public DbSet<QuestoesEntity> Questoes { get; set; }
+    public DbSet<AlternativasEntity> Alternativas { get; set; }
+    public DbSet<RespostaAlunoEntity> RespostasAluno { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

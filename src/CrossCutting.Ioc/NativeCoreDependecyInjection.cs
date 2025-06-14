@@ -26,6 +26,9 @@ public static class NativeCoreDependecyInjection
 
         #region Repositorys
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IQuestoesRepository, QuestoesRepository>();
+        services.AddScoped<IRespostaAlunoRepository, RespostaAlunoRepository>();
+
 
         #endregion
 
@@ -33,6 +36,7 @@ public static class NativeCoreDependecyInjection
         services.AddScoped<IUserInfo, UserInfo>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUsuarioService, UsuarioService>();
+        services.AddScoped<IQuestoesServices, QuestoesService>();
         #endregion
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

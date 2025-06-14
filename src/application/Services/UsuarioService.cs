@@ -67,10 +67,15 @@ public class UsuarioService : BaseService, IUsuarioService
         return _mapper.Map<UsuarioDto>(usuario);
     }
 
+    public async Task<UsuarioEntity> BuscarPorSlug(string slug)
+    {
+        return  await _repository.BuscarPorSlug(slug);
+    }
+
     public async Task<UsuarioDto> BuscarInfo()
     {
         var slug = GetUserSlug();
-        var produtor = await _repository.BuscarPorSlug(slug);
-        return _mapper.Map<UsuarioDto>(produtor);
+        var usuario = await _repository.BuscarPorSlug(slug);
+        return _mapper.Map<UsuarioDto>(usuario);
     }
 }
