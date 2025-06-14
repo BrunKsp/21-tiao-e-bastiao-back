@@ -26,11 +26,12 @@ public class QuestionarioController : BaseController
     [HttpPost("responder")]
     public async Task<IActionResult> ResponderQuestionario([FromBody] RespostasQuestionarioDto dto)
     {
-        await _service.RegistrarRespostas(dto);
+        var resultado = await _service.RegistrarRespostas(dto);
+
         return Ok(new
         {
-            sucesso = true,
-            mensagem = "Respostas registradas com sucesso."
+            mensagem = "Respostas registradas com sucesso.",
+            respostas = resultado
         });
     }
 
