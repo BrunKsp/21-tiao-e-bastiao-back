@@ -1,3 +1,4 @@
+using application.Dtos.Questionario;
 using application.Dtos.Questoes;
 using application.Dtos.Questoes.Resposta;
 using Microsoft.AspNetCore.Mvc;
@@ -8,4 +9,6 @@ public interface IQuestoesServices
 {
     Task<IList<QuestoesDto>> BuscarTodas();
     Task RegistrarRespostas(RespostasQuestionarioDto dto);
+    // Task<IList<RespostaAlunoDetalhadaDto>> BuscarRespostasPorUsuario(string usuarioSlug);
+    Task<IList<QuestionarioRespondidoDto>> BuscarRespostasAgrupadasPorTema(string usuarioSlug);
 }

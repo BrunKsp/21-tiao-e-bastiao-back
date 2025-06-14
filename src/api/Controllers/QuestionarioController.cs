@@ -1,3 +1,4 @@
+using application.Dtos.Questionario;
 using application.Dtos.Questoes;
 using application.Dtos.Questoes.Resposta;
 using application.Interfaces;
@@ -31,5 +32,12 @@ public class QuestionarioController : BaseController
             sucesso = true,
             mensagem = "Respostas registradas com sucesso."
         });
+    }
+
+    [Authorize]
+    [HttpGet("respostas/{slug}")]
+    public async Task<IList<QuestionarioRespondidoDto>> BuscarRespostasUsuario(string slug)
+    {
+        return await _service.BuscarRespostasAgrupadasPorTema(slug);
     }
 }
